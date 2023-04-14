@@ -23,7 +23,7 @@ public class Constant {
         public static final int ATTACK_JUMP_1 = 7;
         public static final int ATTACK_JUMP_2 = 8;
          
-        public static int GetSpikeAmount(int player_action){
+        public static int GetSpiteAmount(int player_action){
 
             switch(player_action){
 
