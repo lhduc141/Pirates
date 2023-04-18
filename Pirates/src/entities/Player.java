@@ -6,7 +6,6 @@ import java.io.IOException;
 import java.io.InputStream;
 
 import static utilz.Constant.PlayerConstants.*;
-import static utilz.Constant.Directions.*;
 
 import javax.imageio.ImageIO;
 
@@ -17,7 +16,7 @@ public class Player extends Entity {
 	private boolean left, right, up, down;
 	private float playerSpeed = 2.0f;
 
-	private boolean moving = false;
+	private boolean moving = false, attacking = false;
     
 
     public Player(float x, float y) {
@@ -34,27 +33,50 @@ public class Player extends Entity {
 
 
 	public void render(Graphics g){
+		//draw animation
+		//playerAction now is IDLE
 		g.drawImage(animations[playerAction][aniIndex], (int)x , (int)y , 256,160,  null);
 
     }
 
 	public void updateAnimationTick() {
-		aniTick ++;
+		aniTick ++; // count to 25
 		if (aniTick >= aniSpeed){
-			aniTick =0; 
-			aniIndex ++;
+			aniTick =0; //reset aniTick 
+			aniIndex ++; //change SubImage 
 			if (aniIndex >= GetSpiteAmount(playerAction)){ 
-				aniIndex = 0;
+				//move, attack, jump, fall => reset aniIndex to 0 (first column)
+				aniIndex = 0; 
+				attacking = false;
 			}
 		}
 	}
 
 	private void setAnimation() {
+
+		int startAnimation = playerAction;
+
 		if(moving ){
 			playerAction = RUNNING;
 		}else 
 			playerAction = IDLE;
+
+		if (attacking){
+			playerAction = ATTACK_1;
+		}
+
+		if (startAnimation != playerAction){
+			// resetAnimationTick();
+			aniTick = 0; 
+			aniIndex = 0;
+		}
+
 	}
+
+	// private void resetAnimationTick() {
+	// 	aniTick = 0; 
+	// 	aniIndex = 0;
+	// }
 
 	private void updatePost() {
 		moving = false ;
@@ -78,20 +100,23 @@ public class Player extends Entity {
     private void loadAnimations() {
 
         InputStream is = getClass().getResourceAsStream("player_sprites.png");
+		//add picture
 
 		try {
 			BufferedImage img = ImageIO.read(is);
 
-            animations = new BufferedImage[9][6]; //creat the Arrray animation 
+			//creat the Arrray animation
+			//In this picture, there is max 6 columns and max 9 rows
+            animations = new BufferedImage[9][6];  
 
-		for (int j = 0; j < animations.length; j++) {
-			for (int i = 0; i < animations[j].length; i++){
-				animations[j][i] = img.getSubimage(i*64, j*40, 64, 40);
+		for (int i = 0; i < animations.length; i++) {
+			for (int j = 0; j < animations[j].length; j++){
+				//make a Sub-image
+				animations[i][j] = img.getSubimage(j*64, i*40, 64, 40);
 			}
 		}
 
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} finally{
             try {
@@ -102,6 +127,19 @@ public class Player extends Entity {
         }
 	}
 
+	public void resetDirBooleans(){
+		left = false;
+		right = false;
+		up = false;
+		down = false;
+	}
+
+	//setter attack
+	public void setAttack(boolean attacking){
+		this.attacking = attacking; 
+	}
+
+	//Getter & setter KeyboardInputs
 	public boolean isLeft() {
 		return left;
 	}
@@ -133,7 +171,6 @@ public class Player extends Entity {
 	public void setDown(boolean down) {
 		this.down = down;
 	}
-
 	
     
 }

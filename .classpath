@@ -2,6 +2,5 @@
 <classpath>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="src" path="Pirates/src"/>
-	<classpathentry kind="src" path="Pirates/utilz"/>
 	<classpathentry kind="output" path="Pirates/bin"/>
 </classpath>

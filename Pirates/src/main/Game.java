@@ -15,7 +15,7 @@ public class Game implements Runnable {
 	private Player player;
 
 	public Game() {
-		initClasses();
+		initClasses(); // creat player
 		gamePanel = new GamePanel(this);
 		gameWindow = new GameWindow(gamePanel);
 		gamePanel.requestFocus();	
@@ -41,7 +41,8 @@ public class Game implements Runnable {
 	}
 
 	@Override
-	public void run() {
+	//repaint 
+	 public void run() {
 
 		double timePerFrame = 1000000000.0 / FPS_SET;
 		double timePerUpdate =  1000000000.0 / UP_SET;
@@ -81,6 +82,10 @@ public class Game implements Runnable {
 			}
 		}
 
+	}
+
+	public void windowLostFocus(){
+		player.resetDirBooleans();
 	}
 
 	public Player getPlayer(){

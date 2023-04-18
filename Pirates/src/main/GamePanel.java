@@ -2,9 +2,11 @@ package main;
 
 import java.awt.Dimension;
 import java.awt.Graphics;
+import java.awt.print.Paper;
 
 import javax.swing.JPanel;
 
+import entities.Player;
 import inputs.KeyboardInputs;
 import inputs.MouseInputs;
 public class GamePanel extends JPanel {
@@ -35,6 +37,7 @@ public class GamePanel extends JPanel {
 		super.paintComponent(g);
 		game.render(g);
 	}
+
 
 	public Game getGame(){
 		return game; 
