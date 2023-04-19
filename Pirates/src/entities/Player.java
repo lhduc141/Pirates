@@ -9,6 +9,8 @@ import static utilz.Constant.PlayerConstants.*;
 
 import javax.imageio.ImageIO;
 
+import utilz.LoadSave;
+
 public class Player extends Entity {
     private BufferedImage[][] animations;
 	private int aniTick, aniIndex, aniSpeed = 25;
@@ -98,12 +100,7 @@ public class Player extends Entity {
 	}
 
     private void loadAnimations() {
-
-        InputStream is = getClass().getResourceAsStream("player_sprites.png");
-		//add picture
-
-		try {
-			BufferedImage img = ImageIO.read(is);
+			BufferedImage img = LoadSave.GetSpriteAtlas(LoadSave.PLAYER_ATLAS);
 
 			//creat the Arrray animation
 			//In this picture, there is max 6 columns and max 9 rows
@@ -115,16 +112,6 @@ public class Player extends Entity {
 				animations[i][j] = img.getSubimage(j*64, i*40, 64, 40);
 			}
 		}
-
-		} catch (IOException e) {
-			e.printStackTrace();
-		} finally{
-            try {
-                is.close();
-            }catch (IOException e){
-                e.printStackTrace();
-            }
-        }
 	}
 
 	public void resetDirBooleans(){
