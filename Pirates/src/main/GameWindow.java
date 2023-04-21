@@ -30,8 +30,6 @@ public class GameWindow {
 			@Override
 			public void windowGainedFocus(WindowEvent e) {
 			}
-
-
 			
 			});
 		}

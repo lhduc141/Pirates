@@ -1,13 +1,10 @@
 package entities;
 
+import static utilz.Constant.PlayerConstants.*;
+import static utilz.HelpMethods.CanMoveHere;
+
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
-import java.io.IOException;
-import java.io.InputStream;
-
-import static utilz.Constant.PlayerConstants.*;
-
-import javax.imageio.ImageIO;
 
 import utilz.LoadSave;
 
@@ -15,19 +12,19 @@ public class Player extends Entity {
     private BufferedImage[][] animations;
 	private int aniTick, aniIndex, aniSpeed = 25;
 	private int playerAction = IDLE; 
+	private boolean moving = false, attacking = false;
 	private boolean left, right, up, down;
 	private float playerSpeed = 2.0f;
+	private int[][] lvData; 
 
-	private boolean moving = false, attacking = false;
-    
-
-    public Player(float x, float y) {
-        super(x, y);
+    public Player(float x, float y, int width, int height) {
+        super(x, y, width, height);
 		loadAnimations();
     }
 
     public void update(){
-		updatePost();	//update positive
+		updatePos();	//update positive
+		updateHitBox();
 		updateAnimationTick();
 		setAnimation();	//choose animation: IDLE, RUNNING, JUMP, FALL,.... 
     }
@@ -37,8 +34,8 @@ public class Player extends Entity {
 	public void render(Graphics g){
 		//draw animation
 		//playerAction now is IDLE
-		g.drawImage(animations[playerAction][aniIndex], (int)x , (int)y , 256,160,  null);
-
+		g.drawImage(animations[playerAction][aniIndex], (int)x , (int)y ,  width, height,  null);
+		drawHitBox(g);
     }
 
 	public void updateAnimationTick() {
@@ -80,23 +77,32 @@ public class Player extends Entity {
 	// 	aniIndex = 0;
 	// }
 
-	private void updatePost() {
+	private void updatePos() {
 		moving = false ;
-		if (left && !right){
-			x -= playerSpeed;
-			moving = true;
-		} else if (right && !left){
-			x += playerSpeed;
-			moving = true;
+
+		if(!left && !right && !up && !down)
+			return;
+		
+		float xSpeed = 0 , ySpeed = 0;
+
+
+		if (left && !right)
+			xSpeed = -playerSpeed;
+		else if (right && !left)
+			xSpeed = +playerSpeed;
+
+		if (up && !down)
+			ySpeed = -playerSpeed;
+		else if (down && !up)
+			ySpeed = +playerSpeed;
+		
+		if(CanMoveHere(x + xSpeed, y + ySpeed, width, height, lvData)){
+			this.x += xSpeed;
+			this.y += ySpeed;
+			moving = true; 
 		}
 
-		if (up && !down){
-			y -= playerSpeed;
-			moving = true;
-		}else if (down && !up){
-			y += playerSpeed;
-			moving = true;
-		}
+
 	}
 
     private void loadAnimations() {
@@ -114,6 +120,11 @@ public class Player extends Entity {
 		}
 	}
 
+	public void loadLvData(int[][] lvData){
+		this.lvData = lvData;
+	}
+
+	//out of screen => stop action
 	public void resetDirBooleans(){
 		left = false;
 		right = false;

@@ -2,6 +2,7 @@ package main;
 
 import java.awt.Graphics;
 
+import entities.Entity;
 import entities.Player;
 import levels.LevelManager;
 
@@ -12,22 +13,20 @@ public class Game implements Runnable {
 	private Thread gameThread;
 	private final int FPS_SET = 120;
 	private final int UP_SET = 200;
+	private Player player;
+	private LevelManager levelManager; 
 	
 	public final static int DEFAULT_SIZE = 32;
-	public final static float SCALE = 1.5f;
+	public final static float SCALE = 1.5f; //can up to 2f;
 	public final static int TILES_WIDTH = 26; 
 	public final static int TILES_HEIGHT = 14; 
 	public final static int SIZE = (int) (DEFAULT_SIZE * SCALE); 
 	public final static int GAME_WIDTH = SIZE * TILES_WIDTH;
 	public final static int GAME_HEIGHT = SIZE * TILES_HEIGHT;
 
-
-
-	private Player player;
-	private LevelManager levelManager; 
-
 	public Game() {
 		initClasses(); // creat player
+
 		gamePanel = new GamePanel(this);
 		gameWindow = new GameWindow(gamePanel);
 		gamePanel.requestFocus();	
@@ -36,8 +35,9 @@ public class Game implements Runnable {
 	}
 
 	private void initClasses() {
-		player = new Player(200,200);
 		levelManager = new LevelManager(this);
+		player = new Player(200,200, (int) (64*SCALE), (int) (40*SCALE) );
+		player.loadLvData(levelManager.getCurrentLevel().getLevelData());;
 	}
 
 	private void startGameLoop() {
@@ -45,14 +45,14 @@ public class Game implements Runnable {
 		gameThread.start();
 	}
 
-	public void update(){
-		player.update();
+	public void update(){	
 		levelManager.update();
+		player.update();
 	}
 
 	public void render(Graphics g) {
-		player.render(g);
 		levelManager.draw(g);
+		player.render(g);
 	}
 
 	@Override
@@ -75,7 +75,7 @@ public class Game implements Runnable {
 			long currentTime = System.nanoTime();
 
 			dU  += (currentTime - previousTime) / timeUpdate;
-			dF  += (currentTime - previousTime) / timeUpdate;
+			dF  += (currentTime - previousTime) / timeFrame;
 			previousTime = currentTime;
 
 			if (dU >= 1){
