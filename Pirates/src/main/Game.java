@@ -14,30 +14,31 @@ public class Game implements Runnable {
 	private final int FPS_SET = 120;
 	private final int UP_SET = 200;
 	private Player player;
-	private LevelManager levelManager; 
-	
-	public final static int DEFAULT_SIZE = 32;
-	public final static float SCALE = 1.5f; //can up to 2f;
-	public final static int TILES_WIDTH = 26; 
-	public final static int TILES_HEIGHT = 14; 
-	public final static int SIZE = (int) (DEFAULT_SIZE * SCALE); 
-	public final static int GAME_WIDTH = SIZE * TILES_WIDTH;
-	public final static int GAME_HEIGHT = SIZE * TILES_HEIGHT;
+	private LevelManager levelManager;
+
+	public final static int TILES_DEFAULT_SIZE = 32;
+	public final static float SCALE = 1.5f; //scale 2.0f
+	public final static int TILES_IN_WIDTH = 26;
+	public final static int TILES_IN_HEIGHT = 14;
+	public final static int TILES_SIZE = (int) (TILES_DEFAULT_SIZE * SCALE);
+	public final static int GAME_WIDTH = TILES_SIZE * TILES_IN_WIDTH;
+	public final static int GAME_HEIGHT = TILES_SIZE * TILES_IN_HEIGHT;
 
 	public Game() {
 		initClasses(); // creat player
 
 		gamePanel = new GamePanel(this);
 		gameWindow = new GameWindow(gamePanel);
-		gamePanel.requestFocus();	
+		gamePanel.requestFocus();
 
-		startGameLoop(); 
+		startGameLoop();
 	}
 
 	private void initClasses() {
 		levelManager = new LevelManager(this);
-		player = new Player(200,200, (int) (64*SCALE), (int) (40*SCALE) );
-		player.loadLvData(levelManager.getCurrentLevel().getLevelData());;
+		player = new Player(200, 200, (int) (64 * SCALE), (int) (40 * SCALE));
+		player.loadLvlData(levelManager.getCurrentLevel().getLevelData());
+		
 	}
 
 	private void startGameLoop() {
@@ -45,7 +46,7 @@ public class Game implements Runnable {
 		gameThread.start();
 	}
 
-	public void update(){	
+	public void update() {
 		levelManager.update();
 		player.update();
 	}
@@ -56,16 +57,16 @@ public class Game implements Runnable {
 	}
 
 	@Override
-	//repaint 
-	 public void run() {
+	// repaint
+	public void run() {
 
 		double timeFrame = 1000000000.0 / FPS_SET;
-		double timeUpdate =  1000000000.0 / UP_SET;
+		double timeUpdate = 1000000000.0 / UP_SET;
 
 		long previousTime = System.nanoTime();
 
 		int frames = 0;
-		int updates = 0; 
+		int updates = 0;
 		long Check = System.currentTimeMillis();
 
 		double dU = 0;
@@ -74,16 +75,16 @@ public class Game implements Runnable {
 		while (true) {
 			long currentTime = System.nanoTime();
 
-			dU  += (currentTime - previousTime) / timeUpdate;
-			dF  += (currentTime - previousTime) / timeFrame;
+			dU += (currentTime - previousTime) / timeUpdate;
+			dF += (currentTime - previousTime) / timeFrame;
 			previousTime = currentTime;
 
-			if (dU >= 1){
+			if (dU >= 1) {
 				update();
 				updates++;
 				dU--;
 			}
-			if (dF >= 1){
+			if (dF >= 1) {
 				gamePanel.repaint();
 				dF--;
 				frames++;
@@ -91,19 +92,19 @@ public class Game implements Runnable {
 
 			if (System.currentTimeMillis() - Check >= 1000) {
 				Check = System.currentTimeMillis();
-				System.out.println("FPS: " + frames + "| UPS: "+updates);
+				System.out.println("FPS: " + frames + "| UPS: " + updates);
 				frames = 0;
-				updates =0;
+				updates = 0;
 			}
 		}
 
 	}
 
-	public void windowLostFocus(){
+	public void windowLostFocus() {
 		player.resetDirBooleans();
 	}
 
-	public Player getPlayer(){
+	public Player getPlayer() {
 		return player;
 	}
 }

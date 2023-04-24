@@ -22,7 +22,7 @@ public class GameWindow {
 		jframe.addWindowFocusListener(new WindowFocusListener() {
 
 			@Override
-			//Out of frame => lost focus
+			// Out of frame => lost focus
 			public void windowLostFocus(WindowEvent e) {
 				gamePanel.getGame().windowLostFocus();
 			}
@@ -30,9 +30,7 @@ public class GameWindow {
 			@Override
 			public void windowGainedFocus(WindowEvent e) {
 			}
-			
-			});
-		}
+
+		});
+	}
 }
-
-
