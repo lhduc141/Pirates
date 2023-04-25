@@ -2,11 +2,9 @@ package main;
 
 import java.awt.Dimension;
 import java.awt.Graphics;
-import java.awt.print.Paper;
 
 import javax.swing.JPanel;
 
-import entities.Player;
 import inputs.KeyboardInputs;
 import inputs.MouseInputs;
 
