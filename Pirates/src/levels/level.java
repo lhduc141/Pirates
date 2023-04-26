@@ -1,17 +1,19 @@
 package levels;
 
 public class Level {
-    private int[][] lvlData;
 
-    public Level(int[][] lvData) {
-        this.lvlData = lvData;
-    }
+	private int[][] lvlData;
 
-    public int getSpiriteIndex(int x, int y) {
-        return lvlData[y][x];
-    }
+	public Level(int[][] lvlData) {
+		this.lvlData = lvlData;
+	}
 
-    public int[][] getLevelData() {
-        return lvlData;
-    }
+	public int getSpriteIndex(int x, int y) {
+		return lvlData[y][x];
+	}
+
+	public int[][] getLevelData() {
+		return lvlData;
+	}
+
 }

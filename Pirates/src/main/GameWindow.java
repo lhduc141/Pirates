@@ -18,19 +18,20 @@ public class GameWindow {
 		jframe.setResizable(false);
 		jframe.pack();
 		jframe.setVisible(true);
-
 		jframe.addWindowFocusListener(new WindowFocusListener() {
 
 			@Override
-			// Out of frame => lost focus
 			public void windowLostFocus(WindowEvent e) {
-				gamePanel.getGame().windowLostFocus();
+				gamePanel.getGame().windowFocusLost();
 			}
 
 			@Override
 			public void windowGainedFocus(WindowEvent e) {
-			}
+				// TODO Auto-generated method stub
 
+			}
 		});
+
 	}
+
 }
