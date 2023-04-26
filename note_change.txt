@@ -1,0 +1,10 @@
+<CHANGE>
+1. Move: 
+	Left: A
+	Right: D 
+	Jump: K
+	Attack: J
+
+2. Remove:
+	resetInAir().Player
+
