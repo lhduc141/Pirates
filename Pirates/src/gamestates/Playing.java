@@ -4,6 +4,8 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
+import java.awt.image.BufferedImage;
+import java.nio.Buffer;
 
 import entities.Player;
 import levels.LevelManager;
@@ -26,12 +28,15 @@ public class Playing extends State implements Statemethods {
 	private int lvlTilesWide = LoadSave.GetLevelData()[0].length;
 	// if gamewidth = 20 but lvlwidth = 30 => maxoffset  = lvlwidth - gamewidth = 10;
 	private int maxTilesOffset = lvlTilesWide - game.TILES_IN_WIDTH;
-
 	private int maxLvlOffsetX = maxTilesOffset *Game.TILES_SIZE;
+
+	private BufferedImage backgroundImg;
 
 	public Playing(Game game) {
 		super(game);
 		initClasses();
+		// create background in game
+		backgroundImg = LoadSave.GetSpriteAtlas(LoadSave.PLAY_BG_IMG);
 	}
 
 	private void initClasses() {
@@ -72,6 +77,9 @@ public class Playing extends State implements Statemethods {
 
 	@Override
 	public void draw(Graphics g) {
+		// draw background for game
+		g.drawImage(backgroundImg, 0, 0, game.GAME_WIDTH, Game.GAME_HEIGHT, null);
+
 		levelManager.draw(g, xLvlOffset);
 		player.render(g, xLvlOffset);
 
