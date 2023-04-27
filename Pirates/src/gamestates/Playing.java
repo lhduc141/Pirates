@@ -1,5 +1,6 @@
 package gamestates;
 
+import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
@@ -74,9 +75,13 @@ public class Playing extends State implements Statemethods {
 		levelManager.draw(g, xLvlOffset);
 		player.render(g, xLvlOffset);
 
-		if (paused)
+		if (paused){
+			// make the side pause screen become darker 
+			g.setColor(new Color(0, 0, 0, 200));
+			g.fillRect(0, 0, game.GAME_WIDTH, game.GAME_HEIGHT);
 			pauseOverlay.draw(g);
 	}
+}
 
 	@Override
 	public void mouseClicked(MouseEvent e) {
