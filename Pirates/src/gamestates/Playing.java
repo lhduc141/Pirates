@@ -19,9 +19,8 @@ public class Playing extends State implements Statemethods {
 	private int xLvlOffset;
 	// the line the player is beyond and we gonna start calculating if there is anything to move
 	//if the width was 100 pixels then player is below 20 pixels and we no need to move to the left
-	private int leftBorder = (int) (0.2 *game.GAME_WIDTH); 
-	
-	private int rightBorder = (int) (0.8 *game.GAME_WIDTH);
+	private int leftBorder = (int) (0.2 * game.GAME_WIDTH); 
+	private int rightBorder = (int) (0.8 * game.GAME_WIDTH);
 
 	private int lvlTilesWide = LoadSave.GetLevelData()[0].length;
 	// if gamewidth = 20 but lvlwidth = 30 => maxoffset  = lvlwidth - gamewidth = 10;
@@ -65,7 +64,7 @@ public class Playing extends State implements Statemethods {
 		if(xLvlOffset > maxLvlOffsetX)
 			xLvlOffset = maxLvlOffsetX;
 		else if(xLvlOffset < 0)
-			xLvlOffset =0;
+			xLvlOffset = 0;
 
 		}
 
