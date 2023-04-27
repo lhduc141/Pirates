@@ -59,7 +59,7 @@ public class Menu extends State implements Statemethods {
 		// TODO Auto-generated method stub
 
 	}
-
+	
 	@Override
 	public void mousePressed(MouseEvent e) {
 		for (MenuButton mb : buttons) {
