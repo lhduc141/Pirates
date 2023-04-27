@@ -33,7 +33,8 @@ public class LevelManager {
 
 	public void draw(Graphics g, int lvlOffset) {
 		for (int j = 0; j < Game.TILES_IN_HEIGHT; j++)
-			for (int i = 0; i < Game.TILES_IN_WIDTH; i++) {
+		//levelon.getleveldata make the road longer
+			for (int i = 0; i < levelOne.getLevelData()[0].length; i++) {
 				int index = levelOne.getSpriteIndex(i, j);
 				g.drawImage(levelSprite[index], Game.TILES_SIZE * i - lvlOffset, Game.TILES_SIZE * j, Game.TILES_SIZE, Game.TILES_SIZE, null);
 			}
