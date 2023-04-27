@@ -16,7 +16,10 @@ public class HelpMethods {
 	}
 
 	private static boolean IsSolid(float x, float y, int[][] lvlData) {
-		if (x < 0 || x >= Game.GAME_WIDTH)
+		// create maxwidth help character walk pass to next scenery and tiles here are walkable
+		// and we make sure level and player moves when we are close to the edge 	
+		int  maxWidth = lvlData[0].length * Game.TILES_SIZE;
+		if (x < 0 || x >= maxWidth)
 			return true;
 		if (y < 0 || y >= Game.GAME_HEIGHT)
 			return true;
