@@ -8,12 +8,26 @@ import entities.Player;
 import levels.LevelManager;
 import main.Game;
 import ui.PauseOverlay;
+import utilz.LoadSave;
 
 public class Playing extends State implements Statemethods {
 	private Player player;
 	private LevelManager levelManager;
 	private PauseOverlay pauseOverlay;
 	private boolean paused = false;
+	// this is offset that we gonna add to and remove from => to draw anything a bit to the left or to the right
+	private int xLvlOffset;
+	// the line the player is beyond and we gonna start calculating if there is anything to move
+	//if the width was 100 pixels then player is below 20 pixels and we no need to move to the left
+	private int leftBorder = (int) (0.2 *game.GAME_WIDTH); 
+	
+	private int rightBorder = (int) (0.8 *game.GAME_WIDTH);
+
+	private int lvlTilesWide = LoadSave.GetLevelData()[0].length;
+	// if gamewidth = 20 but lvlwidth = 30 => maxoffset  = lvlwidth - gamewidth = 10;
+	private int maxTilesOffset = lvlTilesWide - game.TILES_IN_WIDTH;
+
+	private int maxLvlOffsetX = maxTilesOffset *Game.TILES_SIZE;
 
 	public Playing(Game game) {
 		super(game);
