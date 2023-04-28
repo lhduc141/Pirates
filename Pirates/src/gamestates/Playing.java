@@ -106,12 +106,12 @@ public class Playing extends State implements Statemethods {
 }
 	//  add clouds into the main screen 
 	private void drawClouds(Graphics g) {
-		// create more big clouds 
+		// create more big clouds and make them move
 		for(int i = 0; i < 3; i++)
-			g.drawImage(bigCloud, i * BIG_CLOUDS_WIDTH, (int)(204 * Game.SCALE), BIG_CLOUDS_WIDTH, BIG_CLOUDS_HEIGHT, null);
-		// create the random number of small clouds in the sky
+			g.drawImage(bigCloud, i * BIG_CLOUDS_WIDTH -(int)(xLvlOffset * 0.3), (int)(204 * Game.SCALE), BIG_CLOUDS_WIDTH, BIG_CLOUDS_HEIGHT, null);
+		// create the random number of small clouds in the sky and make it move when character move
 		for(int i = 0; i < smallCloudPos.length; i++)
-			g.drawImage(smallCloud, SMALL_CLOUDS_WIDTH * 4 * i, smallCloudPos[i], SMALL_CLOUDS_WIDTH, SMALL_CLOUDS_HEIGHT, null);
+			g.drawImage(smallCloud, SMALL_CLOUDS_WIDTH * 4 * i - (int)(xLvlOffset * 0.7), smallCloudPos[i], SMALL_CLOUDS_WIDTH, SMALL_CLOUDS_HEIGHT, null);
 	
 	}
 	@Override
