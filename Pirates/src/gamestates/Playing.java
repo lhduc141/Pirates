@@ -6,6 +6,7 @@ import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 import java.nio.Buffer;
+import java.util.Random;
 
 import entities.Player;
 import levels.LevelManager;
@@ -31,7 +32,9 @@ public class Playing extends State implements Statemethods {
 	private int maxTilesOffset = lvlTilesWide - game.TILES_IN_WIDTH;
 	private int maxLvlOffsetX = maxTilesOffset *Game.TILES_SIZE;
 
-	private BufferedImage backgroundImg, bigCloud;
+	private BufferedImage backgroundImg, bigCloud, smallCloud;
+	private int [] smallCloudPos;
+	private Random rnd = new Random();
 
 	public Playing(Game game) {
 		super(game);
@@ -40,6 +43,13 @@ public class Playing extends State implements Statemethods {
 		backgroundImg = LoadSave.GetSpriteAtlas(LoadSave.PLAY_BG_IMG);
 		// create the big clouds image
 		bigCloud = LoadSave.GetSpriteAtlas(LoadSave.BIG_CLOUDS);
+		// create the small clouds image
+		smallCloud = LoadSave.GetSpriteAtlas(LoadSave.SMALL_CLOUDS);
+
+		smallCloudPos = new int [8];
+
+		for(int i = 0; i < smallCloudPos.length; i++)
+			smallCloudPos[i] = (int)(70 * Game.SCALE) + rnd.nextInt((int) (150 * Game.SCALE));
 	}
 
 	private void initClasses() {
@@ -94,11 +104,15 @@ public class Playing extends State implements Statemethods {
 			pauseOverlay.draw(g);
 	}
 }
-	//  add bigclouds into the main screen 
+	//  add clouds into the main screen 
 	private void drawClouds(Graphics g) {
 		// create more big clouds 
 		for(int i = 0; i < 3; i++)
-		g.drawImage(bigCloud, 0 + i * BIG_CLOUDS_WIDTH, (int)(204 * Game.SCALE), BIG_CLOUDS_WIDTH, BIG_CLOUDS_HEIGHT, null);
+			g.drawImage(bigCloud, i * BIG_CLOUDS_WIDTH, (int)(204 * Game.SCALE), BIG_CLOUDS_WIDTH, BIG_CLOUDS_HEIGHT, null);
+		// create the random number of small clouds in the sky
+		for(int i = 0; i < smallCloudPos.length; i++)
+			g.drawImage(smallCloud, SMALL_CLOUDS_WIDTH * 4 * i, smallCloudPos[i], SMALL_CLOUDS_WIDTH, SMALL_CLOUDS_HEIGHT, null);
+	
 	}
 	@Override
 	public void mouseClicked(MouseEvent e) {
