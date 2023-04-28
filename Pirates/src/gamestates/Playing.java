@@ -12,6 +12,7 @@ import levels.LevelManager;
 import main.Game;
 import ui.PauseOverlay;
 import utilz.LoadSave;
+import static utilz.Constants.Environment.*;
 
 public class Playing extends State implements Statemethods {
 	private Player player;
@@ -30,13 +31,15 @@ public class Playing extends State implements Statemethods {
 	private int maxTilesOffset = lvlTilesWide - game.TILES_IN_WIDTH;
 	private int maxLvlOffsetX = maxTilesOffset *Game.TILES_SIZE;
 
-	private BufferedImage backgroundImg;
+	private BufferedImage backgroundImg, bigCloud;
 
 	public Playing(Game game) {
 		super(game);
 		initClasses();
 		// create background in game
 		backgroundImg = LoadSave.GetSpriteAtlas(LoadSave.PLAY_BG_IMG);
+		// create the big clouds image
+		bigCloud = LoadSave.GetSpriteAtlas(LoadSave.BIG_CLOUDS);
 	}
 
 	private void initClasses() {
@@ -79,6 +82,7 @@ public class Playing extends State implements Statemethods {
 	public void draw(Graphics g) {
 		// draw background for game
 		g.drawImage(backgroundImg, 0, 0, game.GAME_WIDTH, Game.GAME_HEIGHT, null);
+		drawClouds(g);
 
 		levelManager.draw(g, xLvlOffset);
 		player.render(g, xLvlOffset);
@@ -90,7 +94,12 @@ public class Playing extends State implements Statemethods {
 			pauseOverlay.draw(g);
 	}
 }
-
+	//  add bigclouds into the main screen 
+	private void drawClouds(Graphics g) {
+		// create more big clouds 
+		for(int i = 0; i < 3; i++)
+		g.drawImage(bigCloud, 0 + i * BIG_CLOUDS_WIDTH, (int)(204 * Game.SCALE), BIG_CLOUDS_WIDTH, BIG_CLOUDS_HEIGHT, null);
+	}
 	@Override
 	public void mouseClicked(MouseEvent e) {
 		// if (e.getButton() == MouseEvent.BUTTON1)
