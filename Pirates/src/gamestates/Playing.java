@@ -8,6 +8,7 @@ import java.awt.image.BufferedImage;
 import java.nio.Buffer;
 import java.util.Random;
 
+import entities.EnemyManger;
 import entities.Player;
 import levels.LevelManager;
 import main.Game;
@@ -18,6 +19,7 @@ import static utilz.Constants.Environment.*;
 public class Playing extends State implements Statemethods {
 	private Player player;
 	private LevelManager levelManager;
+	private EnemyManger enemyManger;
 	private PauseOverlay pauseOverlay;
 	private boolean paused = false;
 	// this is offset that we gonna add to and remove from => to draw anything a bit to the left or to the right
@@ -45,15 +47,14 @@ public class Playing extends State implements Statemethods {
 		bigCloud = LoadSave.GetSpriteAtlas(LoadSave.BIG_CLOUDS);
 		// create the small clouds image
 		smallCloud = LoadSave.GetSpriteAtlas(LoadSave.SMALL_CLOUDS);
-
 		smallCloudPos = new int [8];
-
 		for(int i = 0; i < smallCloudPos.length; i++)
 			smallCloudPos[i] = (int)(70 * Game.SCALE) + rnd.nextInt((int) (150 * Game.SCALE));
 	}
 
 	private void initClasses() {
 		levelManager = new LevelManager(game);
+		enemyManger = new EnemyManger(this);
 		player = new Player(200, 200, (int) (64 * Game.SCALE), (int) (40 * Game.SCALE));
 		player.loadLvlData(levelManager.getCurrentLevel().getLevelData());
 		pauseOverlay = new PauseOverlay(this);
@@ -64,6 +65,7 @@ public class Playing extends State implements Statemethods {
 		if (!paused) {
 			levelManager.update();
 			player.update();
+			enemyManger.update();
 			checkCloseToBorder();
 		} else {
 			pauseOverlay.update();
@@ -96,6 +98,7 @@ public class Playing extends State implements Statemethods {
 
 		levelManager.draw(g, xLvlOffset);
 		player.render(g, xLvlOffset);
+		enemyManger.draw(g, xLvlOffset);
 
 		if (paused){
 			// make the side pause screen become darker 
