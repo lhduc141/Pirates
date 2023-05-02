@@ -1,6 +1,7 @@
 package entities;
 
 import static utilz.Constants.EnemyConstants.*;
+
 import main.Game;
 public class Crabby extends Enemy {
 
@@ -8,5 +9,37 @@ public class Crabby extends Enemy {
         super(x, y, CRABBY_WIDTH, CRABBY_HEIGHT, CRABBY);
         initHitbox(x, y, (int) (22 * Game.SCALE), (int) (19 * Game.SCALE));
     } 
+
+    public void update(int[][] lvlData, Player player){
+        updateMove(lvlData, player);
+        updateAnimationTick();
+    }
+
+    private void updateMove(int[][] lvlData, Player player){
+		if (firstUpdate) 
+            firstUpdateCheck(lvlData); 
+
+        
+        if (inAir){
+            updateInAir(lvlData);
+        }else 
+            switch(enemyState){
+                //can help crab can patrol
+                //when it idle => make it move
+                case IDLE: 
+                    newState(RUNNING);
+                    break;
+                //when it running => change direction when reach can't move place
+                case RUNNING:
+
+                    if(canSeePlayer(lvlData, player))
+                        turnTowardsPlayer(player);
+                    if(isPlayerCloseForAttack(player))
+                        newState(ATTACK);
+
+                    move(lvlData);
+                    break;
+            }
+    }
     
 }
