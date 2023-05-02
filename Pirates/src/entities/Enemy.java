@@ -39,11 +39,11 @@ public abstract class Enemy extends Entity {
     }
 
     private void updateMove(int[][] lvlData){
-        if (firstUpdate){
-            if (!IsEntityOnFloor(hitbox, lvlData))
-                inAir = true; 
-            firstUpdate = false; 
-        }     
+		if (firstUpdate) {
+			if (!IsEntityOnFloor(hitbox, lvlData))
+				inAir = true;
+			firstUpdate = false;
+		}   
 
         if (inAir){
             if(CanMoveHere(hitbox.x, hitbox.y + fallSpeed, hitbox.width, hitbox.height, lvlData)){
@@ -74,9 +74,9 @@ public abstract class Enemy extends Entity {
                         }
                     
                     //change Dir
-                    if (walkDir == LEFT) 
-                        walkDir = RIGHT; 
-                    else walkDir = LEFT; 
+                    if (walkDir == LEFT) {
+                            walkDir = RIGHT; 
+                    }else walkDir = LEFT; 
 
                     break;
 
