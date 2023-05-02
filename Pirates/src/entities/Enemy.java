@@ -2,16 +2,19 @@ package entities;
 
 import static utilz.Constants.EnemyConstants.*;
 import static utilz.HelpMethods.*;
+import static utilz.Constants.Directions.*;
 
 import main.Game;
 
 public abstract class Enemy extends Entity {
-    private int aniIndex, enemyState, enemyType;
-    private int aniTick, aniSpeed = 25;
-    private boolean firstUpdate = true;
-    private boolean inAir ; 
-    private float fallSpeed;
-    private float gravity = 0.04f * Game.SCALE;
+	private int aniIndex, enemyState, enemyType;
+	private int aniTick, aniSpeed = 25;
+	private boolean firstUpdate = true;
+	private boolean inAir;
+	private float fallSpeed;
+	private float gravity = 0.04f * Game.SCALE;
+	private float walkSpeed = 0.35f * Game.SCALE;
+	private int walkDir = LEFT;
 
     public Enemy(float x, float y, int width, int height, int enemyType) {
             super(x, y, width, height);
@@ -36,9 +39,12 @@ public abstract class Enemy extends Entity {
     }
 
     private void updateMove(int[][] lvlData){
-        if (firstUpdate)
+        if (firstUpdate){
             if (!IsEntityOnFloor(hitbox, lvlData))
                 inAir = true; 
+            firstUpdate = false; 
+        }     
+
         if (inAir){
             if(CanMoveHere(hitbox.x, hitbox.y + fallSpeed, hitbox.width, hitbox.height, lvlData)){
                 hitbox.y += fallSpeed;
@@ -47,11 +53,38 @@ public abstract class Enemy extends Entity {
                 inAir  = false; 
                 hitbox.y = GetEntityYPosUnderRoofOrAboveFloor(hitbox, fallSpeed); 
             }
-
         }else {
+            switch(enemyState){
+                //can help crab can patrol 
+                case IDLE: 
+                    enemyState = RUNNING;
+                    break;
+                case RUNNING:
+                    float xSpeed = 0; 
 
+                    if(walkDir == LEFT){
+                        xSpeed = -walkSpeed; 
+                    }else 
+                        xSpeed = walkSpeed;
+
+                    if (CanMoveHere(hitbox.x + xSpeed, hitbox.y, hitbox.width, hitbox.height, lvlData))
+                        if (IsFloor(hitbox, xSpeed, lvlData)){
+                            hitbox.x += xSpeed;
+                            return;
+                        }
+                    
+                    //change Dir
+                    if (walkDir == LEFT) 
+                        walkDir = RIGHT; 
+                    else walkDir = LEFT; 
+
+                    break;
+
+            }
         }
     }
+
+
 
     public int getAniIndex(){
         return aniIndex;
