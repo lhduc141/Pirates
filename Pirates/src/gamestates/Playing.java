@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
+import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
 import java.nio.Buffer;
 import java.util.Random;
@@ -55,7 +56,7 @@ public class Playing extends State implements Statemethods {
 	private void initClasses() {
 		levelManager = new LevelManager(game);
 		enemyManger = new EnemyManger(this);
-		player = new Player(200, 200, (int) (64 * Game.SCALE), (int) (40 * Game.SCALE));
+		player = new Player(200, 200, (int) (64 * Game.SCALE), (int) (40 * Game.SCALE), this);
 		player.loadLvlData(levelManager.getCurrentLevel().getLevelData());
 		pauseOverlay = new PauseOverlay(this);
 	}
@@ -160,7 +161,14 @@ public class Playing extends State implements Statemethods {
 			player.setAttacking(true);
 			break;	
 		}
+	}
 
+	public void resetAll(){
+		//TODO: reset all player enemy, lvl ect. 
+	}
+
+	public void checkEnemyHit(Rectangle2D.FLoat attackBox){
+		enemyManger.checkEnemyHit(attackBox);
 	}
 
 	public void mouseDragged(MouseEvent e) {

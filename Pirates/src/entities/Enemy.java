@@ -4,6 +4,7 @@ import static utilz.Constants.EnemyConstants.*;
 import static utilz.Constants.Directions.*;
 import static utilz.HelpMethods.*;
 
+import java.awt.geom.Rectangle2D;
 
 import main.Game;
 
@@ -18,11 +19,18 @@ public abstract class Enemy extends Entity {
 	protected int walkDir = LEFT;
     protected int tileY;
     protected float attackDistance = Game.TILES_SIZE; // attack distance of enemy
+    protected int maxHealth;
+    protected int currentHealth; 
+    protected boolean active = true; 
+    protected boolean attackChecked; 
     
     public Enemy(float x, float y, int width, int height, int enemyType) {
             super(x, y, width, height);
             this.enemyType = enemyType;
             initHitbox(x, y, width, height);
+            
+            maxHealth = GetMaxHealth(enemyType);
+            currentHealth = maxHealth;
     }
 
     //check the first status spawn is in air or not base lvlData
@@ -93,14 +101,24 @@ public abstract class Enemy extends Entity {
         int absValue = (int) Math.abs(player.hitbox.x - hitbox.x);
         return absValue <= attackDistance; 
     }
-
-
     
     //reset animation tick when change state
     protected void newState(int enemyState){
         this.enemyState = enemyState;
         aniTick = 0; 
         aniIndex = 0; 
+    }
+
+    public void hurt(int amount){
+        currentHealth  -= amount; 
+        if (currentHealth <0){
+            newState(DEAD);
+        }else newState(HIT);
+    }
+
+
+    protected void checkEnemyHit(Rectangle2D attackBox, Player player) {
+        if(attackBox)
     }
 
     protected void updateAnimationTick(){
@@ -111,8 +129,10 @@ public abstract class Enemy extends Entity {
             //finish 1 animation
             if (aniIndex >= GetSpriteAmount(enemyType, enemyState)){
                 aniIndex = 0;
-                if (enemyState == ATTACK){
-                    enemyState = IDLE;
+
+                switch (enemyState){
+                    case ATTACK, HIT -> enemyState = IDLE; 
+                    case DEAD -> active = false; 
                 }
             }
         }
@@ -132,4 +152,7 @@ public abstract class Enemy extends Entity {
         return enemyState;
     }
 
+    public boolean isActive(){
+        return active;
+    }
 }
