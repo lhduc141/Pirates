@@ -44,7 +44,7 @@ public class Player extends Entity {
 	private int healthBarYStart = (int) (14*Game.SCALE);
 
 	private int maxHealth = 100; 
-	private int currentHealth = maxHealth; 
+	private int currentHealth = maxHealth; //not max health
 	private int healthWidth = healthBarWidth;
 
 	//attack box => range attack of player 
@@ -73,6 +73,11 @@ public class Player extends Entity {
 	//update animation and their position
 	public void update() {
 		updateHealthBar();
+
+		if(currentHealth <=0){
+			 playing.setGameOver(true);
+		}
+
 		updateAttackBox();
 
 		updatePos();
@@ -98,7 +103,7 @@ public class Player extends Entity {
 			attackBox.x = hitbox.x - hitbox.width - (int)(10*Game.SCALE);
 		}
 
-		//attack box = 
+		//attack box 
 		attackBox.y = hitbox.y + + (int)(10*Game.SCALE); 
 	}
 
@@ -110,7 +115,7 @@ public class Player extends Entity {
 	public void render(Graphics g, int lvlOffset) {
 		g.drawImage(animations[playerAction][aniIndex], (int) (hitbox.x - xDrawOffset) - lvlOffset + flipX, (int) (hitbox.y - yDrawOffset), width*flipW, height, null);
 		// drawHitbox(g, lvlOffset);
-		drawAttackBox(g,lvlOffset);
+		// drawAttackBox(g,lvlOffset);
 
 		drawUI(g);
 		
@@ -137,6 +142,7 @@ public class Player extends Entity {
 			if (aniIndex >= GetSpriteAmount(playerAction)) {
 				aniIndex = 0;
 				attacking = false;
+				attackChecked = false; 
 			}
 		}
 	}
@@ -156,9 +162,14 @@ public class Player extends Entity {
 				playerAction = FALLING;
 		}
 
-		if (attacking)
+		if (attacking){
 			playerAction = ATTACK;
-
+			if(startAni != ATTACK){
+				aniIndex = 1; //index of attack is at 1
+				aniTick = 0;
+				return; 
+			}
+		}
 		if (startAni != playerAction)
 			resetAniTick();
 	}
@@ -310,6 +321,22 @@ public class Player extends Entity {
 
 	public void setJump(boolean jump) {
 		this.jump = jump;
+	}
+
+	public void resetAll() {
+		resetDirBooleans();
+		inAir = false; 
+		attacking = false; 
+		moving = false; 
+		playerAction = IDLE;
+		currentHealth = maxHealth;
+
+		hitbox.x = x; 
+		hitbox.y = y;
+
+		if(!IsEntityOnFloor(hitbox, lvlData)){
+			inAir = true;
+		}
 	}
 
 }

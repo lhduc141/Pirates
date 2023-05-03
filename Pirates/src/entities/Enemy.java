@@ -118,7 +118,9 @@ public abstract class Enemy extends Entity {
 
 
     protected void checkEnemyHit(Rectangle2D attackBox, Player player) {
-        if(attackBox)
+        if(attackBox.intersects(player.hitbox)){
+            player.changeHealth(-GetEnemyDmg(enemyType));
+        }attackChecked = true;
     }
 
     protected void updateAnimationTick(){
@@ -142,6 +144,16 @@ public abstract class Enemy extends Entity {
         if (walkDir == LEFT) {
                 walkDir = RIGHT; 
         }else walkDir = LEFT; 
+    }
+
+    public void resetEnemies(){
+        hitbox.x = x; 
+        hitbox.y = y;
+        firstUpdate = true; 
+        currentHealth = maxHealth;
+        newState(IDLE);
+        active = true; 
+        fallSpeed = 0; 
     }
     
     public int getAniIndex(){

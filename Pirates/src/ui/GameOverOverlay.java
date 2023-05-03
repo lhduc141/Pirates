@@ -22,6 +22,7 @@ public class GameOverOverlay {
         g.setColor(Color.white);
         g.drawString("NGUUUUUUU", Game.GAME_WIDTH/2, 150);
         g.drawString("PRESS ESC TO ENTER MAIN MENU", Game.GAME_WIDTH/2, 300);
+
     }
 
     public void KeyPressed(KeyEvent e){
