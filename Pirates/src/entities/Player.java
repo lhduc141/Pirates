@@ -49,6 +49,9 @@ public class Player extends Entity {
 	//attack box => range attack of player 
 	private Rectangle2D.Float attackBox; 
 	
+	//flip 
+	private int flipX = 0; 
+	private int flipW = 1; 
 
 
 	public Player(float x, float y, int width, int height) {
@@ -90,7 +93,7 @@ public class Player extends Entity {
 
 	//help to draw
 	public void render(Graphics g, int lvlOffset) {
-		g.drawImage(animations[playerAction][aniIndex], (int) (hitbox.x - xDrawOffset) - lvlOffset, (int) (hitbox.y - yDrawOffset), width, height, null);
+		g.drawImage(animations[playerAction][aniIndex], (int) (hitbox.x - xDrawOffset) - lvlOffset + flipX, (int) (hitbox.y - yDrawOffset), width*flipW, height, null);
 		// drawHitbox(g, lvlOffset);
 		drawAttackBox(g,lvlOffset);
 
@@ -139,7 +142,7 @@ public class Player extends Entity {
 		}
 
 		if (attacking)
-			playerAction = ATTACK_1;
+			playerAction = ATTACK;
 
 		if (startAni != playerAction)
 			resetAniTick();
@@ -165,10 +168,16 @@ public class Player extends Entity {
 			if((!left && !right) || (left && right))
 			return;
 		//check left or right and move
-		if (left)
+		if (left){
 			xSpeed -= playerSpeed;
-		if (right)
+			flipX = width;
+			flipW = -1;
+		}
+		if (right){
 			xSpeed += playerSpeed;
+			flipX = 0; 
+			flipW = 1; 
+		}
 
 		//check inAir
 		if (!inAir)
@@ -226,7 +235,7 @@ public class Player extends Entity {
 
 		BufferedImage img = LoadSave.GetSpriteAtlas(LoadSave.PLAYER_ATLAS);
 
-		animations = new BufferedImage[9][6];
+		animations = new BufferedImage[7][8];
 		for (int j = 0; j < animations.length; j++)
 			for (int i = 0; i < animations[j].length; i++)
 				animations[j][i] = img.getSubimage(i * 64, j * 40, 64, 40);
