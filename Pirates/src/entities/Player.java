@@ -26,22 +26,43 @@ public class Player extends Entity {
 	private float fallSpeedAfterCollision = 0.5f * Game.SCALE;
 	private boolean inAir = false;
 
+	//StatusBarUI
+	private BufferedImage statusBarImg;
+
+	private int statusBarWidth = (int) (192*Game.SCALE);
+	private int statusBarHeight = (int) (58*Game.SCALE);
+	private int statusBarX = (int) (10*Game.SCALE);
+	private int statusBarY = (int) (10*Game.SCALE);
+
+	private int healthBarWidth = (int) (150*Game.SCALE);
+	private int healthBarHeight = (int) (4*Game.SCALE);
+	private int healthBarXStart = (int) (34*Game.SCALE);
+	private int healthBarYStart = (int) (14*Game.SCALE);
+	
 	public Player(float x, float y, int width, int height) {
 		super(x, y, width, height);
 		loadAnimations();
 		initHitbox(x, y, (int) (20 * Game.SCALE), (int) (27 * Game.SCALE));
-
 	}
 
+	//update animation and their position
 	public void update() {
 		updatePos();
 		updateAnimationTick();
 		setAnimation();
 	}
 
+	//help to draw
 	public void render(Graphics g, int lvlOffset) {
 		g.drawImage(animations[playerAction][aniIndex], (int) (hitbox.x - xDrawOffset) - lvlOffset, (int) (hitbox.y - yDrawOffset), width, height, null);
 		// drawHitbox(g, lvlOffset);
+
+		drawUI(g);
+		
+	}
+
+	private void drawUI(Graphics g) {
+		g.drawImage(statusBarImg, statusBarX, statusBarY, statusBarWidth, statusBarHeight, null);
 	}
 
 	private void updateAnimationTick() {
@@ -155,13 +176,14 @@ public class Player extends Entity {
 			for (int i = 0; i < animations[j].length; i++)
 				animations[j][i] = img.getSubimage(i * 64, j * 40, 64, 40);
 
+		statusBarImg = LoadSave.GetSpriteAtlas(LoadSave.STATUS_BAR);
+			
 	}
 
 	public void loadLvlData(int[][] lvlData) {
 		this.lvlData = lvlData;
 		if (!IsEntityOnFloor(hitbox, lvlData))
 			inAir = true;
-
 	}
 
 	public void resetDirBooleans() {
