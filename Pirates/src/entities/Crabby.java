@@ -55,11 +55,11 @@ public class Crabby extends Enemy {
                 //when it running => change direction when reach can't move place
                 case RUNNING:
 
-                    if(canSeePlayer(lvlData, player))
+                    if(canSeePlayer(lvlData, player)){
                         turnTowardsPlayer(player);
                     if(isPlayerCloseForAttack(player))
                         newState(ATTACK);
-
+                    }
                     move(lvlData);
                     break;
                 case ATTACK:
