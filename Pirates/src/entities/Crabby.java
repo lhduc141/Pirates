@@ -12,13 +12,11 @@ import static utilz.Constants.Directions.*;
 import main.Game;
 public class Crabby extends Enemy {
     
-    //attack box => range attack of player 
-	private Rectangle2D.Float attackBox; 
     private int attackBoxOffsetX; 
 
     public Crabby(float x, float y) {
         super(x, y, CRABBY_WIDTH, CRABBY_HEIGHT, CRABBY);
-        initHitbox(x, y, (int) (22 * Game.SCALE), (int) (19 * Game.SCALE));
+        initHitbox(22, 19);
         initAttackBox();
     } 
 
@@ -46,7 +44,7 @@ public class Crabby extends Enemy {
         if (inAir){
             updateInAir(lvlData);
         }else 
-            switch(enemyState){
+            switch(state){
                 //can help crab can patrol
                 //when it idle => make it move
                 case IDLE: 
@@ -73,11 +71,6 @@ public class Crabby extends Enemy {
                 case HIT: 
                     break; 
             }
-    }
-
-    public void drawAttackBox(Graphics g, int lvlOffset){
-        g.setColor(Color.red);
-        g.drawRect( (int) attackBox.x - lvlOffset, (int)attackBox.y,(int) attackBox.width, (int)attackBox.height);
     }
 
     public int flipX(){
