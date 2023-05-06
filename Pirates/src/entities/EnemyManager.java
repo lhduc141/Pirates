@@ -4,33 +4,38 @@ package entities;
 import java.awt.Graphics;
 import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
+import java.lang.System.Logger.Level;
 import java.util.ArrayList;
 
 import gamestates.Playing;
 import utilz.LoadSave;
 import static utilz.Constants.EnemyConstants.*;
 
-public class EnemyManger {
+public class EnemyManager {
     
     private Playing playing;
     private BufferedImage[][] crabbyArr;
     private ArrayList<Crabby> crabbies = new ArrayList<>(); 
 
-    public EnemyManger(Playing playing){
+    public EnemyManager(Playing playing){
         this.playing = playing; 
-        loadEnemyImg();
-        addEnemies();
+        loadEnemyImgs();
     }
 
-    private void addEnemies() {
-        crabbies = LoadSave.GetCrabs();
+    public void loadEnemies(levels.Level newLevel) {
+        crabbies = newLevel.getCrabs();
     }
 
     public void update(int[][] lvlData, Player player){
+        boolean isAnyActive = false;
         for (Crabby c: crabbies){
-            if (c.isActive())
+            if (c.isActive()){
                 c.update(lvlData, player);
+                isAnyActive = true;
+            }
         }
+        if (!isAnyActive)
+            playing.setLevelCompleted(true);;
     }
 
     public void draw(Graphics g, int xLvlOffset){
@@ -57,7 +62,7 @@ public class EnemyManger {
             }
     }
 
-    private void loadEnemyImg(){
+    private void loadEnemyImgs(){
         crabbyArr = new BufferedImage[5][9];
         BufferedImage temp = LoadSave.GetSpriteAtlas(LoadSave.CRABBY_SPRITE);
         for (int i =0; i<crabbyArr.length; i++)

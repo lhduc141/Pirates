@@ -5,6 +5,8 @@ import static utilz.Constants.EnemyConstants.*;
 
 public class Constants {
 
+	public static final float GRAVITY = 0.04f * Game.SCALE;
+
 	public static class EnemyConstants{
 		public static final int CRABBY = 0; 
 		
@@ -48,7 +50,7 @@ public class Constants {
 		public static int GetMaxHealth(int enemy_type){
 			switch (enemy_type){
 				case CRABBY: 
-					return 10; 
+					return 1; 
 				default: 
 					return 1; 
 			}

@@ -2,6 +2,7 @@ package entities;
 
 import static utilz.Constants.EnemyConstants.*;
 import static utilz.Constants.Directions.*;
+import static utilz.Constants.GRAVITY;
 import static utilz.HelpMethods.*;
 
 import java.awt.geom.Rectangle2D;
@@ -14,7 +15,7 @@ public abstract class Enemy extends Entity {
 	protected boolean firstUpdate = true;
 	protected boolean inAir;
 	protected float fallSpeed;
-	protected float gravity = 0.04f * Game.SCALE;
+	
 	protected float walkSpeed = 0.35f * Game.SCALE;
 	protected int walkDir = LEFT;
     protected int tileY;
@@ -45,7 +46,7 @@ public abstract class Enemy extends Entity {
     protected void updateInAir(int[][] lvlData){
         if(CanMoveHere(hitbox.x, hitbox.y + fallSpeed, hitbox.width, hitbox.height, lvlData)){
             hitbox.y += fallSpeed;
-            fallSpeed += gravity; 
+            fallSpeed += GRAVITY; 
         }else {
             inAir  = false; 
             hitbox.y = GetEntityYPosUnderRoofOrAboveFloor(hitbox, fallSpeed); 
