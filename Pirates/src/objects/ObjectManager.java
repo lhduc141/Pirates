@@ -5,6 +5,7 @@ import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
 import gamestates.Playing;
+import levels.Level;
 import utilz.LoadSave;
 import static utilz.Constants.ObjectConstants.*;
 
@@ -19,16 +20,12 @@ public class ObjectManager {
     public ObjectManager(Playing playing){
         this.playing = playing;
         loadImgs();
-
-        potions = new ArrayList<>();
-        potions.add(new Potion(300, 300, RED_POTION));
-        potions.add(new Potion(400, 400, BLUE_POTION));
-
-        containers = new ArrayList<>();
-        containers.add(new GameContainer(500, 300, BARREL));
-        containers.add(new GameContainer(600, 300, BOX));
     }
 
+    public void loadObjects(Level newLevel) {
+        potions = newLevel.gePotions();
+        containers = newLevel.getContainers();
+    }
 
     private void loadImgs() {
         BufferedImage potionSprite = LoadSave.GetSpriteAtlas(LoadSave.POTION_ATLAS);
@@ -95,5 +92,6 @@ public class ObjectManager {
             }
                 
     }
+
 
 }
