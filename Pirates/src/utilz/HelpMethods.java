@@ -13,6 +13,7 @@ import static utilz.Constants.ObjectConstants.*;
 import main.Game;
 import objects.GameContainer;
 import objects.Potion;
+import objects.Spike;
 
 public class HelpMethods {
 
@@ -178,5 +179,17 @@ public class HelpMethods {
 		return list;
 		
 	}
+
+    public static ArrayList<Spike> GetSpikes(BufferedImage img) {
+		ArrayList<Spike> list = new ArrayList<>();
+		for (int j = 0; j < img.getHeight(); j++)
+			for (int i = 0; i < img.getWidth(); i++) {
+				Color color = new Color(img.getRGB(i, j));
+				int value = color.getBlue();
+				if (value == SPIKE)
+					list.add(new Spike(i * Game.TILES_SIZE, j * Game.TILES_SIZE, SPIKE));
+			}
+		return list;
+    }
 
 }
