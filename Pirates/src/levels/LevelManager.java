@@ -4,8 +4,6 @@ import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
-import javax.swing.text.LabelView;
-
 import gamestates.Gamestate;
 import main.Game;
 import utilz.LoadSave;
@@ -35,6 +33,7 @@ public class LevelManager {
 		game.getPlaying().getEnemyManager().loadEnemies(newLevel);
 		game.getPlaying().getPlayer().loadLvlData(newLevel.getLevelData());
 		game.getPlaying().setMaxLvlOffset(newLevel.getLvlOffset());
+		game.getPlaying().getObjectManager().loadObjects(newLevel);
 	}
 
 	private void buildAllLevels() {

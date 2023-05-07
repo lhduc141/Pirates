@@ -7,7 +7,7 @@ import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
 import entities.Crabby;
-import static utilz.Constants.EnemyConstants.*;
+import static utilz.Constants.EnemyConstants.CRABBY;
 import static utilz.Constants.ObjectConstants.*;
 
 import main.Game;
