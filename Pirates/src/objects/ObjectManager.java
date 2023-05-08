@@ -11,6 +11,7 @@ import levels.Level;
 import main.Game;
 import utilz.LoadSave;
 import static utilz.Constants.ObjectConstants.*;
+import static utilz.HelpMethods.canCannonSeePlayer;
 
 public class ObjectManager {
     
@@ -130,20 +131,16 @@ public class ObjectManager {
                         if (isPlayerInRange(c, player))
                             if (isPlayerInfrontOfCannon(c, player))
                                 if (canCannonSeePlayer(lvlData,player.getHitbox(),c.getHitbox(), c.getTileY())) {
-                                    //shoot
+                                    shootCannon(c);
                                 }
                 c.update();
             }
             
         }
-
-        /* if the cannon is not Animating 
-         * tileY is same
-         * ifPlayer is in range
-         * is player in front of cannon
-         * los
-         * -shoot the cannon
-         */
+        
+    private void shootCannon(Cannon c) {
+        c.setAnimation(true);
+    }
 
     public void draw (Graphics g, int xLvlOffset){
         drawPotions (g, xLvlOffset);
