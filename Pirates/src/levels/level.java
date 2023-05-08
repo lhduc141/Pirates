@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import entities.Crabby;
 import main.Game;
 import objects.GameContainer;
+import objects.Cannon;
 import objects.Potion;
 import objects.Spike;
 import utilz.HelpMethods;
@@ -25,6 +26,7 @@ public class Level {
 	private ArrayList<Potion> potions;
 	private ArrayList<Spike> spikes;
 	private ArrayList<GameContainer> containers;
+	private ArrayList<Cannon> cannons;
 	private int lvlTilesWide;
 	private int maxTilesOffset;
 	private int maxLvlOffsetX;
@@ -36,9 +38,14 @@ public class Level {
 		createEnemies();
 		createPotions();
 		createContainers();
+		createCannons();
 		createSpikes();
 		calcLvlOffsets();
 		calcPlayerSpawn();
+	}
+
+	private void createCannons() {
+		cannons = HelpMethods.GetCannons(img);
 	}
 
 	private void createSpikes() {
@@ -101,6 +108,10 @@ public class Level {
 
 	public ArrayList<Spike> getSpikes(){
 		return spikes;
+	}
+
+	public ArrayList<Cannon> getCannons() {
+		return cannons;
 	}
 
 }
