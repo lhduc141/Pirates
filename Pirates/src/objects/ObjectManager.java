@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import entities.Player;
 import gamestates.Playing;
 import levels.Level;
+import main.Game;
 import utilz.LoadSave;
 import static utilz.Constants.ObjectConstants.*;
 
@@ -97,7 +98,7 @@ public class ObjectManager {
         cannonImgs[i] = temp.getSubimage( i*40, 0, 40, 26);
     }
 
-    public void update(){
+    public void update(int[][] lvlData, Player player){
         for (Potion p : potions)
             if (p.isActive())
                 p.update();
@@ -105,13 +106,44 @@ public class ObjectManager {
             if (gc.isActive())
                 gc.update();
 
-        updateCannons();
+        updateCannons(lvlData, player);
         }
 
-        private void updateCannons() {
-            for (Cannon c : cannons)
-            c.update();
+        private boolean isPlayerInRange(Cannon c, Player player) {
+            int absValue = (int) Math.abs(player.getHitbox().x - c.getHitbox().x);
+            return absValue <= Game.TILES_SIZE * 5; 
+            }
+        
+        private boolean isPlayerInfrontOfCannon(Cannon c, Player player) {
+            if (c.getObjType() == CANNON_LEFT) {
+                if (c.getHitbox().x > player.getHitbox().x)
+                return true;
+            } else if (c.getHitbox().x < player.getHitbox().x)
+            return true;
+            return false;
+            }   
+
+        private void updateCannons(int[][] lvlData, Player player) {
+            for (Cannon c : cannons){
+                if(!c.doAnimation)
+                    if(c.getTileY() == player.getTileY())
+                        if (isPlayerInRange(c, player))
+                            if (isPlayerInfrontOfCannon(c, player))
+                                if (canCannonSeePlayer(lvlData,player.getHitbox(),c.getHitbox(), c.getTileY())) {
+                                    //shoot
+                                }
+                c.update();
+            }
+            
         }
+
+        /* if the cannon is not Animating 
+         * tileY is same
+         * ifPlayer is in range
+         * is player in front of cannon
+         * los
+         * -shoot the cannon
+         */
 
     public void draw (Graphics g, int xLvlOffset){
         drawPotions (g, xLvlOffset);
