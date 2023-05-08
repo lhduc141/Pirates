@@ -12,6 +12,7 @@ import main.Game;
 import utilz.LoadSave;
 import static utilz.Constants.ObjectConstants.*;
 import static utilz.HelpMethods.canCannonSeePlayer;
+import static utilz.HelpMethods.IsProjectileHittingLevel;
 import static utilz.Constants.Projectiles.*;
 
 public class ObjectManager {
@@ -117,9 +118,15 @@ public class ObjectManager {
 
         private void updateProjectiles(int[][] lvlData, Player player) {
             for (Projectile p : projectiles)
-            if(p.isActive())
+            if(p.isActive()){
                 p.updatePos();
+            if(p.getHitbox().intersects(player.getHitbox())) {
+                player.changeHealth(-25);
+                p.setActive(false);
+            } else if (IsProjectileHittingLevel(p, lvlData)) 
+                p.setActive(false);
         }
+    }
 
         private boolean isPlayerInRange(Cannon c, Player player) {
             int absValue = (int) Math.abs(player.getHitbox().x - c.getHitbox().x);
