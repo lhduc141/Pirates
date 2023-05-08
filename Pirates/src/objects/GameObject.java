@@ -32,10 +32,11 @@ public class GameObject {
             //finish 1 animation
             if (aniIndex >= GetSpriteAmount(objType)){
                 aniIndex = 0;
-                if (objType == BARREL || objType == BOX){
+                if (objType == BARREL || objType == BOX ){
                     doAnimation = false;
                     active = false;
-                }
+                } else if (objType == CANNON_LEFT || objType == CANNON_RIGHT)
+                doAnimation = false;
             }
         }
     }
