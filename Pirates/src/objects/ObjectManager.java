@@ -142,9 +142,11 @@ public class ObjectManager {
                         if (isPlayerInRange(c, player))
                             if (isPlayerInfrontOfCannon(c, player))
                                 if (canCannonSeePlayer(lvlData,player.getHitbox(),c.getHitbox(), c.getTileY())) {
-                                    shootCannon(c);
+                                    c.setAnimation(false);
                                 }
                 c.update();
+                if(c.getAniIndex() == 4 && c.getAniTick() == 0)
+                shootCannon(c);
             }
             
         }
