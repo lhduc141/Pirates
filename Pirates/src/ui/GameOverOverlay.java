@@ -3,11 +3,14 @@ package ui;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.event.KeyEvent;
+import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 
 import gamestates.Gamestate;
 import gamestates.Playing;
 import main.Game;
+import utilz.LoadSave;
+import static utilz.Constants.UI.URMButtons.*;
 
 public class GameOverOverlay {
 
@@ -87,7 +90,7 @@ public class GameOverOverlay {
             }
 
         }else if (isIn(play, e))
-            if (next.isMousePressed())
+            if (play.isMousePressed())
                 playing.resetAll();
 
         menu.resetBools();
