@@ -8,8 +8,11 @@ import static utilz.Constants.*;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Point;
+import java.awt.geom.Ellipse2D;
 import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
+
+import javax.lang.model.util.ElementScanner14;
 
 import gamestates.Playing;
 import main.Game;
@@ -85,7 +88,18 @@ public class Player extends Entity {
 		updateHealthBar();
 
 		if(currentHealth <=0){
-			 playing.setGameOver(true);
+			if(state != DEAD) {
+				state = DEAD;
+				aniTick = 0;
+				aniIndex = 0;
+				playing.setPlayerDying(true);
+			}else if(aniIndex == GetSpriteAmount(DEAD) - 1 && aniTick <= ANI_SPEED -1 ){
+				playing.setGameOver(true);
+			}else
+				updateAnimationTick();
+
+				return;
+			//  playing.setGameOver(true);
 		}
 
 		updateAttackBox();
