@@ -103,20 +103,21 @@ public class HelpMethods {
 	}
 
 	public static boolean canCannonSeePlayer(int[][] lvlData, Rectangle2D.Float firstHitbox, Rectangle2D.Float secondHitbox, int yTile) {
-		int firstXTile = (int) (firstHitbox.x/ Game.TILES_SIZE);
-		int secondXTile = (int) (secondHitbox.x/ Game.TILES_SIZE);
+		//like IsSightClear
+		int firstXTile = (int) (firstHitbox.x / Game.TILES_SIZE);
+		int secondXTile = (int) (secondHitbox.x / Game.TILES_SIZE);
 
-		if(firstXTile > secondXTile){
+		if (firstXTile > secondXTile)
 			return IsAllTilesClear(secondXTile, firstXTile, yTile, lvlData);
-		}else 
+		else
 			return IsAllTilesClear(firstXTile, secondXTile, yTile, lvlData);
 	}
 
 	public static boolean IsAllTilesClear(int xStart, int xEnd, int y, int[][] lvlData) {
-		for (int i=0; i<xEnd - xStart; i++)
-			if (IsTileSolid(xStart +i , y, lvlData))
-			return false;
-			return true;
+		for (int i = 0; i < xEnd - xStart; i++)
+			if (IsTileSolid(xStart + i, y, lvlData))
+				return false;
+		return true;
 	}
 
 	public static boolean IsAllTileWalkable(int xStart, int xEnd, int y, int[][] lvlData){
@@ -216,6 +217,7 @@ public class HelpMethods {
 
 	public static ArrayList<Cannon> GetCannons(BufferedImage img) {
 		ArrayList<Cannon> list = new ArrayList<>();
+
 		for (int j = 0; j < img.getHeight(); j++)
 			for (int i = 0; i < img.getWidth(); i++) {
 				Color color = new Color(img.getRGB(i, j));
@@ -223,6 +225,7 @@ public class HelpMethods {
 				if (value == CANNON_LEFT || value == CANNON_RIGHT)
 					list.add(new Cannon(i * Game.TILES_SIZE, j * Game.TILES_SIZE, value));
 			}
+			
 		return list;
     }
 }
