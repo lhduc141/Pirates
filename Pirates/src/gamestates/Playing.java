@@ -258,7 +258,8 @@ public class Playing extends State implements Statemethods {
 				pauseOverlay.mousePressed(e);
 			else if (lvlCompleted)
 				levelCompletedOverlay.mousePressed(e);
-		}
+		}else 
+			gameOverOverlay.mousePressed(e);
 	}
 
 	@Override
@@ -268,7 +269,8 @@ public class Playing extends State implements Statemethods {
 				pauseOverlay.mouseReleased(e);
 			else if (lvlCompleted)
 				levelCompletedOverlay.mouseReleased(e);
-		}
+		}else 
+		gameOverOverlay.mouseReleased(e);
 
 	}
 
@@ -279,7 +281,8 @@ public class Playing extends State implements Statemethods {
 				pauseOverlay.mouseMoved(e);
 			else if (lvlCompleted)
 				levelCompletedOverlay.mouseMoved(e);	
-		}
+		}else 
+		gameOverOverlay.mouseMoved(e);
 
 	}
 
