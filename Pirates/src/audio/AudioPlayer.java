@@ -2,11 +2,11 @@ package audio;
 
 import java.io.IOException;
 import java.net.URL;
-import java.rmi.server.LoaderHandler;
 import java.util.Random;
 
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.BooleanControl;
 import javax.sound.sampled.Clip;
 import javax.sound.sampled.FloatControl;
 import javax.sound.sampled.LineUnavailableException;
@@ -68,6 +68,24 @@ public class AudioPlayer {
             e.printStackTrace();
         }
         return null;
+    }
+
+    public void toggleSongMute() {
+        this.songMute = !songMute;
+        for (Clip c : songs) {
+            BooleanControl booleanControl = (BooleanControl) c.getControl(BooleanControl.Type.MUTE);
+            booleanControl.setValue(songMute);
+        }
+    }
+
+    public void toggleEffectMute() {
+        this.effectMute = !effectMute;
+		for (Clip c : effects) {
+			BooleanControl booleanControl = (BooleanControl) c.getControl(BooleanControl.Type.MUTE);
+			booleanControl.setValue(effectMute);
+		}
+		if (!effectMute)
+			playEffect(JUMP);
     }
 
     private void updateSongVolume() {
