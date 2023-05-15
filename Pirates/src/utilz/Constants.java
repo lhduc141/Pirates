@@ -1,7 +1,6 @@
 package utilz;
 
 import main.Game;
-import static utilz.Constants.EnemyConstants.*;
 
 public class Constants {
 
@@ -117,7 +116,7 @@ public class Constants {
 		public static int GetEnemyDmg(int enemy_type){
 			switch (enemy_type){
 				case CRABBY: 
-					return 15; 
+					return 1; 
 				default: 
 					return 0; 
 			}

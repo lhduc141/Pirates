@@ -4,7 +4,6 @@ package entities;
 import java.awt.Graphics;
 import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
-import java.lang.System.Logger.Level;
 import java.util.ArrayList;
 
 import gamestates.Playing;
@@ -47,18 +46,17 @@ public class EnemyManager {
         for (Crabby c: crabbies)
             if (c.isActive()){
             g.drawImage(crabbyArr[c.getEnemyState()][c.getAniIndex()], (int) c.getHitbox().x - xLvlOffset -CRABBY_DRAWOFFSET_X + c.flipX(),(int) c.getHitbox().y - CRABBY_DRAWOFFSET_Y,  CRABBY_WIDTH*c.flipW(), CRABBY_HEIGHT, null);
-            // c.drawHitbox(g, xLvlOffset);
-            // c.drawAttackBox(g, xLvlOffset);
             }
     }
 
     public void checkEnemyHit(Rectangle2D.Float attackBox){
         for(Crabby c: crabbies)
             if (c.isActive()){
-                if (attackBox.intersects(c.getHitbox())){
-                    c.hurt(10);
-                    return;
-                }
+                if (c.getCurrentHealth()>0)
+                    if (attackBox.intersects(c.getHitbox())){
+                        c.hurt(10);
+                        return;
+                    }
             }
     }
 
