@@ -47,7 +47,7 @@ public class AudioPlayer {
     }
 
     private void loadEffects() {
-        String[] effectNames = {"die","jump","gameover","lvlcompleted","attck1","attack2","attack3"};
+        String[] effectNames = {"die","jump","gameover","lvlcompleted","attack1","attack2","attack3"};
         effects = new Clip[effectNames.length];
         for (int i = 0; i < effects.length; i++) {
             effects[i] = getClip(effectNames[i]);

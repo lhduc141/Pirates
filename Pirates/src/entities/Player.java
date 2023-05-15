@@ -8,11 +8,8 @@ import static utilz.Constants.*;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Point;
-import java.awt.geom.Ellipse2D;
 import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
-
-import javax.lang.model.util.ElementScanner14;
 
 import audio.AudioPlayer;
 import gamestates.Playing;
@@ -298,10 +295,6 @@ public class Player extends Entity {
 
 	public void kill() {
 		currentHealth = 0;
-	}
-
-	public void changePower(int value){
-		System.out.println("Added power!");
 	}
 
 	private void loadAnimations() {

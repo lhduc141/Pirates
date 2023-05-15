@@ -4,16 +4,11 @@ import java.awt.Graphics;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 
-import javax.lang.model.util.ElementScanner14;
-
 import gamestates.Gamestate;
 import gamestates.Playing;
 import main.Game;
-import utilz.Constants;
 import utilz.LoadSave;
-import static utilz.Constants.UI.PauseButtons.*;
 import static utilz.Constants.UI.URMButtons.*;
-import static utilz.Constants.UI.VolumeButtons.*;
 
 public class PauseOverlay {
 

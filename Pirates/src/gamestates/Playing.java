@@ -6,7 +6,6 @@ import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
-import java.nio.Buffer;
 import java.util.Random;
 
 import entities.EnemyManager;
@@ -17,7 +16,6 @@ import objects.ObjectManager;
 import ui.GameOverOverlay;
 import ui.LevelCompletedOverlay;
 import ui.PauseOverlay;
-import utilz.HelpMethods;
 import utilz.LoadSave;
 import static utilz.Constants.Environment.*;
 
