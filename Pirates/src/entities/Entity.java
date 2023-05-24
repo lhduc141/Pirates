@@ -1,3 +1,14 @@
+/*
+ * Members: 
+ * Lưu Hoàng Đức – ITITIU21181
+ * Nguyễn Hoàng Giang – ITITIU21192
+ * Nguyễn Tiến Luân – ITITIU21040
+ * Đoàn Bảo Nhật Minh – ITITIU21243
+ 
+ * Purpose: to creat the common properties of the entity so that subclasses can inherit: 
+ * 		- x, y, width, height, hitbox, max and current health, speed
+ * 		- animation tick and index to draw entity
+ */
 package entities;
 import java.awt.Color;
 import java.awt.Graphics;

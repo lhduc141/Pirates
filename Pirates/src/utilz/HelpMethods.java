@@ -1,3 +1,15 @@
+/*
+ * Members: 
+ * Lưu Hoàng Đức – ITITIU21181
+ * Nguyễn Hoàng Giang – ITITIU21192
+ * Nguyễn Tiến Luân – ITITIU21040
+ * Đoàn Bảo Nhật Minh – ITITIU21243
+ 
+ * Purpose: include some methods which is necessary: 
+ * 			- to check is this place can move or block, is entity on the floor to avoid drop down, the enemy check can see and run to player. 
+ * 			- get (spawn) entities and objects
+ * 			- set level. 
+ */
 package utilz;
 
 import java.awt.Color;
@@ -89,12 +101,6 @@ public class HelpMethods {
 
 	}
 
-	/**
-	 * We just check the bottomleft of the enemy here +/- the xSpeed. We never check bottom right in case the
-	 * enemy is going to the right. It would be more correct checking the bottomleft for left direction and
-	 * bottomright for the right direction. But it wont have big effect in the game. The enemy will simply change 
-	 * direction sooner when there is an edge on the right side of the enemy, when its going right.
-	 */
 	public static boolean IsFloor(Rectangle2D.Float hitbox, float xSpeed, int[][] lvlData){
 		if (xSpeed > 0)
 			return IsSolid(hitbox.x + hitbox.width + xSpeed, hitbox.y + hitbox.height + 1, lvlData);

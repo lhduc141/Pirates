@@ -1,3 +1,13 @@
+/*
+ * Members: 
+ * Lưu Hoàng Đức – ITITIU21181
+ * Nguyễn Hoàng Giang – ITITIU21192
+ * Nguyễn Tiến Luân – ITITIU21040
+ * Đoàn Bảo Nhật Minh – ITITIU21243
+ 
+ * Purpose: properties of player inherit from properties of entiy; 
+ * 			draw player (animations turn left right, jump, ...), creat hitbox and attack box. 
+ */
 package entities;
 
 import static utilz.Constants.PlayerConstants.*;
@@ -197,11 +207,8 @@ public class Player extends Entity {
 	//help to draw
 	public void render(Graphics g, int lvlOffset) {
 		g.drawImage(animations[state][aniIndex], (int) (hitbox.x - xDrawOffset) - lvlOffset + flipX, (int) (hitbox.y - yDrawOffset), width*flipW, height, null);
-		// drawHitbox(g, lvlOffset);
-		// drawAttackBox(g,lvlOffset);
 
 		drawUI(g);
-	
 	}
 
 	private void drawUI(Graphics g) {
