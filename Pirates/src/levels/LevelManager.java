@@ -1,3 +1,12 @@
+/*
+ * Members: 
+ * Lưu Hoàng Đức – ITITIU21181
+ * Nguyễn Hoàng Giang – ITITIU21192
+ * Nguyễn Tiến Luân – ITITIU21040
+ * Đoàn Bảo Nhật Minh – ITITIU21243
+ * 
+ * Purpose: load levels playing and draw map
+ */
 package levels;
 
 import java.awt.Graphics;

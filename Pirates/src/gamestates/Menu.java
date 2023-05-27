@@ -1,3 +1,12 @@
+/*
+ * Members: 
+ * Lưu Hoàng Đức – ITITIU21181
+ * Nguyễn Hoàng Giang – ITITIU21192
+ * Nguyễn Tiến Luân – ITITIU21040
+ * Đoàn Bảo Nhật Minh – ITITIU21243
+ * 
+ * Purpose: creat menu state with sound and function
+ */
 package gamestates;
 
 import java.awt.Graphics;
@@ -56,8 +65,6 @@ public class Menu extends State implements Statemethods {
 
 	@Override
 	public void mouseClicked(MouseEvent e) {
-		// TODO Auto-generated method stub
-
 	}
 	
 	@Override
@@ -114,8 +121,6 @@ public class Menu extends State implements Statemethods {
 
 	@Override
 	public void keyReleased(KeyEvent e) {
-		// TODO Auto-generated method stub
-
 	}
 
 }

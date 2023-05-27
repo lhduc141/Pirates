@@ -1,3 +1,12 @@
+/*
+ * Members: 
+ * Lưu Hoàng Đức – ITITIU21181
+ * Nguyễn Hoàng Giang – ITITIU21192
+ * Nguyễn Tiến Luân – ITITIU21040
+ * Đoàn Bảo Nhật Minh – ITITIU21243
+ 
+ * Purpose: creat the screen
+ */
 package main;
 
 import java.awt.event.WindowEvent;
@@ -28,8 +37,6 @@ public class GameWindow {
 
 			@Override
 			public void windowGainedFocus(WindowEvent e) {
-				// TODO Auto-generated method stub
-
 			}
 		});
 

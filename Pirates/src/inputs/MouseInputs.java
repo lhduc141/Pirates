@@ -1,3 +1,12 @@
+/*
+ * Members: 
+ * Lưu Hoàng Đức – ITITIU21181
+ * Nguyễn Hoàng Giang – ITITIU21192
+ * Nguyễn Tiến Luân – ITITIU21040
+ * Đoàn Bảo Nhật Minh – ITITIU21243
+ * 
+ * Purpose: import mouse inputs for each state of game
+ */
 package inputs;
 
 import java.awt.event.MouseEvent;
@@ -102,8 +111,6 @@ public class MouseInputs implements MouseListener, MouseMotionListener {
 
 	@Override
 	public void mouseEntered(MouseEvent e) {
-		// TODO Auto-generated method stub
-
 	}
 
 	@Override

@@ -1,3 +1,13 @@
+/*
+ * Members: 
+ * Lưu Hoàng Đức – ITITIU21181
+ * Nguyễn Hoàng Giang – ITITIU21192
+ * Nguyễn Tiến Luân – ITITIU21040
+ * Đoàn Bảo Nhật Minh – ITITIU21243
+ * 
+ * Purpose: playing state: draw map, control level playing, creat player, enemies, .... 
+ * 							(anything player can play in this game)
+ */
 package gamestates;
 
 import java.awt.Color;
@@ -214,7 +224,7 @@ public class Playing extends State implements Statemethods {
 	}
 
 	public void resetAll(){
-		//TODO: reset all player enemy, lvl ect.
+		//reset all player enemy, lvl ect.
 		gameOver = false; 
 		paused = false; 
 		lvlCompleted = false;

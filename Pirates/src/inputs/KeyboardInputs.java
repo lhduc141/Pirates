@@ -1,3 +1,12 @@
+/*
+ * Members: 
+ * Lưu Hoàng Đức – ITITIU21181
+ * Nguyễn Hoàng Giang – ITITIU21192
+ * Nguyễn Tiến Luân – ITITIU21040
+ * Đoàn Bảo Nhật Minh – ITITIU21243
+ * 
+ * Purpose: import keyboard inputs for each state of game
+ */
 package inputs;
 
 import java.awt.event.KeyEvent;
@@ -16,7 +25,6 @@ public class KeyboardInputs implements KeyListener {
 
 	@Override
 	public void keyTyped(KeyEvent e) {
-		// TODO Auto-generated method stub
 	}
 
 	@Override
